@@ -2,22 +2,50 @@ package main
 
 import "fmt"
 
+type product struct {
+	part1 string
+	part2 string
+	part3 string
+}
+
+type Builder interface {
+	BuildPart1()
+	BuildPart2()
+	BuildPart3()
+	GetProduct() *product
+}
+
+type productBuidler struct {
+	product *product
+}
+
+func (p *productBuidler) GetProduct() *product {
+	return p.product
+}
+
+func (p *productBuidler) BuildPart1() {
+	p.product.part1 = "1"
+}
+func (p *productBuidler) BuildPart2() {
+	p.product.part2 = "2"
+}
+func (p *productBuidler) BuildPart3() {
+	p.product.part3 = "3"
+}
+
+type Director struct {
+	b Builder
+}
+
+func (d *Director) Construct() {
+	d.b.BuildPart1()
+	d.b.BuildPart2()
+	d.b.BuildPart3()
+}
+
 func main() {
-	normalBuilder := getBuilder("normal")
-	iglooBuilder := getBuilder("igloo")
-
-	director := newDirector(normalBuilder)
-	normalHouse := director.build()
-
-	fmt.Printf("Normal House Door Type: %s\n", normalHouse.doorType)
-	fmt.Printf("Normal House Window Type: %s\n", normalHouse.windowType)
-	fmt.Printf("Normal House Num Floor: %d\n", normalHouse.floor)
-
-	director.setBuilder(iglooBuilder)
-	iglooHouse := director.build()
-
-	fmt.Printf("\nIgloo House Door Type: %s\n", iglooHouse.doorType)
-	fmt.Printf("Igloo House Window Type: %s\n", iglooHouse.windowType)
-	fmt.Printf("Igloo House Num Floor: %d\n", iglooHouse.floor)
-
+	buidler := productBuidler{product: &product{}}
+	director := Director{b: &buidler}
+	director.Construct()
+	fmt.Printf("%#v", buidler.GetProduct())
 }
