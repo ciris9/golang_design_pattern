@@ -41,6 +41,7 @@ func initCache(e EvictionAlgo) *Cache {
 		capacity:     0,
 		maxCapacity:  2,
 	}
+
 }
 
 func (c *Cache) setEvictionAlgo(e EvictionAlgo) {

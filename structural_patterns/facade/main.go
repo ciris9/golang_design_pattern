@@ -14,6 +14,7 @@ func NewFacoder() *Facader {
 		partTwo:   PartTwo{},
 		partThree: PartThree{},
 	}
+
 }
 
 func (d *Facader) FacaderDo() {

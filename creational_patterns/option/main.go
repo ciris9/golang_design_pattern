@@ -10,6 +10,7 @@ type Message struct {
 
 func (msg *Message) String() {
 	fmt.Printf("ID:%d \n- Name:%s \n- Address:%s \n", msg.id, msg.name, msg.address)
+
 }
 
 var DefaultMessage = &Message{}
